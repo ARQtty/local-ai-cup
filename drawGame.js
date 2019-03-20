@@ -5,7 +5,9 @@ var subscribeUnits = true;
 function drawGameState(){
 	drawGameField();
 	drawGameUnits();
-	drawGameFood();		
+	drawGameFood();
+	if (warFog === true)
+		drawGameWarFog();
 }
 
 function drawGameField(){
@@ -31,6 +33,44 @@ function drawGameField(){
 	}
 	ctx.stroke();
 	// console.log("drawed");
+}
+
+function drawGameWarFog(){
+	let transparencyMap = [];
+	for (let i=0; i<sizeY; i++){
+		transparencyMap.push([]);
+		for (let j=0; j<sizeX; j++){
+			transparencyMap[i].push(0);
+		}
+	}
+
+	for (let u=0; u<units.length; u++){
+		for (let i=-visualDistance; i<=visualDistance; i++){
+			for (let j=-visualDistance; j<=visualDistance; j++){
+				if (Math.abs(j) + Math.abs(i) < visualDistance){
+					let currX = units[u].position.x + i;
+					let currY = units[u].position.y + j;
+
+					if ((currX >= 0) && (currX < sizeX) && (currY >= 0) && (currY < sizeY)){
+						transparencyMap[currX][currY] = 1;
+					}
+				}
+			}
+		}
+	}
+
+	ctx.beginPath();
+	ctx.fillStyle = "grey";
+	ctx.globalAlpha = 0.3;
+	for (let i=0; i<sizeY; i++){
+		for (let j=0; j<sizeX; j++){
+			if (!transparencyMap[i][j]){
+				ctx.rect(i*cellSize, j*cellSize, cellSize, cellSize);
+			}
+		}
+	}
+	ctx.fill();
+	ctx.globalAlpha = 1;
 }
 
 function drawGameUnits(){

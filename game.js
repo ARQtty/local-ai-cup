@@ -1,6 +1,7 @@
 // Game field is rectangle with size N
 var sizeY = field.length;
 var sizeX = field[0].length;
+var visualDistance = 4;
 
 var gameProcess;
 var DEBUG = false;
@@ -50,7 +51,7 @@ players[1].units = units.slice(3, 6);
 
 // Game service code
 var steps = 0;
-var iterationInterval, foodSpawnChance, foodOnStart, cellSize;
+var iterationInterval, foodSpawnChance, foodOnStart, warFog, cellSize;
 function startGame(){
 	// Game main loop
 	loadSettings();
@@ -85,6 +86,7 @@ function loadSettings(){
 	foodSpawnChance = document.getElementById("foodSpawnChance").value;
 	foodOnStart = document.getElementById("foodOnStart").value;
 	cellSize = document.getElementById("cellSize").value;
+	warFog = document.getElementById("warFog").checked;
 }
 function countPlayersScore(){
 	for (let p=0; p<players.length; p++){
@@ -316,10 +318,9 @@ function inVisible(unit_id) {
 	if (unit.owner != currPlayer){
 		console.error("Cant get vision with unit "+unit_id+" course its not "+currPlayer+"'s step");
 	}else{
-		let visDist = 5;
 		let visibleObjs = [];
-		for (let i=-visDist; i<=visDist; i++){
-			for (let j=-visDist; j<=visDist; j++){
+		for (let i=-visualDistance; i<=visualDistance; i++){
+			for (let j=-visualDistance; j<=visualDistance; j++){
 				// console.log("In field", i, j, ((j == 0) && (i == 0)));
 				if ((j == 0) && (i == 0) || (Math.abs(j) + Math.abs(i) > 3)){
 					continue;
