@@ -19,16 +19,16 @@ function generateId(){
 	idCounter++;
 	return "u" + idCounter;
 }
-(function exampleUnitsGeneration(){
-	let un1 = new Unit("ARQ", 3, 3);
-	let un2 = new Unit("ARQ", 3, 4);
-	let un3 = new Unit("ARQ", 4, 3);
+function exampleUnitsGeneration(playersNames){
+	let un1 = new Unit(playersNames[0], 3, 3);
+	let un2 = new Unit(playersNames[0], 3, 4);
+	let un3 = new Unit(playersNames[0], 4, 3);
 	
-	let un4 = new Unit("Guest", 18, 18);
-	let un5 = new Unit("Guest", 17, 18);
-	let un6 = new Unit("Guest", 18, 17);
+	let un4 = new Unit(playersNames[1], 18, 18);
+	let un5 = new Unit(playersNames[1], 17, 18);
+	let un6 = new Unit(playersNames[1], 18, 17);
 	units.push(un1, un2, un3, un4, un5, un6);
-})();
+}
 function getPlayerUnits(playerName){
 	// Возвращает всех юнитов указанного игрока
 	let units = [];
@@ -40,8 +40,9 @@ function getPlayerUnits(playerName){
 
 
 // Настройки игроков
-var currPlayer = "ARQ"; // Who starts the game
 var players = [new BotFarmer("FarmerBot", "#32cd32"), new BotRandom("RandomBot", "#005000")]; // [bot1, bot2....]
+exampleUnitsGeneration([players[0].name, players[1].name]);
+var currPlayer = players[0].name; // Who starts the game
 // Распределение юнитов по игрокам
 players[0].units = units.slice(0, 3);
 players[1].units = units.slice(3, 6);
@@ -105,12 +106,18 @@ function countPlayersScore(){
 function nextPlayerTurn(){
 	// Обновляет очередь игроков ходить
 	for (let p=0; p<players.length; p++){
-		if ((players[p].name == currPlayer) && (p != players.length-1))
+		if ((players[p].name == currPlayer) && (p != players.length-1)){
 			currPlayer = players[p+1].name;
-		else if ((players[p].name == currPlayer) && (p == players.length-1))
+			return;
+		}
+		else if ((players[p].name == currPlayer) && (p == players.length-1)){
 			currPlayer = players[0].name;
-		else
-			console.error("Невозможно построить очередь игроков. Нет игрока после "+currPlayer);
+			return;
+		}
+		else{
+			continue;
+		}
+		console.error("Невозможно построить очередь игроков. Нет игрока после "+currPlayer);
 	}
 }
 
@@ -231,6 +238,7 @@ function moveRight(unit_id){
 		}else{
 			if (DEBUG)
 				console.log("Невозможно подвинуть юнита "+unit_id+". Клетка ("+(unit.position.x+1)+","+unit.position.y+") занята");
+		}
 	}
 }
 function eatFood(unit_id, foodPos) {
