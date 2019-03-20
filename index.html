@@ -13,8 +13,7 @@
 			margin: 0px;
 		}
 		#settings{
-			width: 20vw;
-			height: 50vh;
+			padding: 0px 15px 15px 0px;
 			background-color: #ffeeff;
 			right: 0px;
 			top: 0px;
@@ -41,27 +40,32 @@
 		<p><b>Настройки</b></p>
 
 		<p>
-			<span>Интервал между шагами</span>
+			<span>Интервал между шагами</span><br/>
 			<input id="iterationTime" type="text" value="300">мс
 		</p>
 
 		<p>
-			<span>Вероятность спавна еды</span>
+			<span>Вероятность спавна еды</span><br/>
 			<input id="foodSpawnChance" type="text" value="0.1">/итерацию
 		</p>
 
 		<p>
-			<span>Еды при старте</span>
+			<span>Еды при старте</span><br/>
 			<input id="foodOnStart" type="text" value="25">ед. *
 		</p>
 
 		<p>
-			<span>Размер игровой клетки</span>
+			<span>Туман войны</span>
+			<input id="warFog" type="checkbox" checked="true" onchange="warFog=this.checked">
+		</p>
+
+		<p>
+			<span>Размер игровой клетки</span><br/>
 			<input id="cellSize" type="text" value="25">пикселей
 		</p>
 
 		<p>
-			<button onclick="loadSettings()">Принять</button>
+			<button onclick="loadSettings()">Принять</button><br/>
 			<button onclick="relaunchGame()">Принять и перезапустить матч *</button>
 		</p>
 
