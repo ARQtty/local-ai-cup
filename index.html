@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Local AI cup</title>
+	<script src="data.js"></script>
+	<script src="basicBots.js"></script>
+	<script src="drawGame.js"></script>
+	<script src="game.js"></script>
+	<style>
+		html, body, canvas{
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+		}
+		#settings{
+			width: 20vw;
+			height: 50vh;
+			background-color: #ffeeff;
+			right: 0px;
+			top: 0px;
+			position: absolute;
+		}
+	</style>
+	<script>
+		var canvas, ctx;
+
+		function init(){
+			canvas = document.getElementById("game");
+			ctx = canvas.getContext("2d");
+			canvas.width = window.innerWidth;
+			canvas.height= window.innerHeight;
+			drawGameState();
+			console.log("Field "+sizeX+"x"+sizeY);
+			startGame();
+		}
+	</script>
+</head>
+<body onload="init()">
+	<canvas id="game"></canvas>
+	<div id="settings">
+		<p><b>Настройки</b></p>
+
+		<p>
+			<span>Интервал между шагами</span>
+			<input id="iterationTime" type="text" value="300">мс
+		</p>
+
+		<p>
+			<span>Вероятность спавна еды</span>
+			<input id="foodSpawnChance" type="text" value="0.1">/итерацию
+		</p>
+
+		<p>
+			<span>Еды при старте</span>
+			<input id="foodOnStart" type="text" value="25">ед. *
+		</p>
+
+		<p>
+			<span>Размер игровой клетки</span>
+			<input id="cellSize" type="text" value="25">пикселей
+		</p>
+
+		<p>
+			<button onclick="loadSettings()">Принять</button>
+			<button onclick="relaunchGame()">Принять и перезапустить матч *</button>
+		</p>
+
+	</div>
+</body>
+</html>
