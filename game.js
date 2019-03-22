@@ -55,6 +55,7 @@ var iterationInterval, foodSpawnChance, foodOnStart, warFog, cellSize;
 function startGame(){
 	// Хост-процесс игры
 	loadSettings();
+	clearField();
 
 	console.log("Сверху - "+players[0].name);
 	console.log("Снизу  - "+players[1].name);
@@ -81,6 +82,7 @@ function startGame(){
 function relaunchGame(){
 	// Перезапускает игру по нажатию кнопки на панели настроек
 	clearInterval(gameProcess);
+	clearField();
 	loadSettings();
 	startGame();
 }
@@ -170,9 +172,8 @@ function spawnFood(){
 	else
 		spawnFood();
 }
-function isUnit(posX, posY){
-	// Проверяет наличие юнита в клетке. Если он есть, возвращает объект с этим юнитом
-	for (let i=0; i<units.length; i++)
-		if ((units[i].position.x == posX) && (units[i].position.y == posY))
-			return units[i];
+function clearField(){
+	for (let i=0; i<field.length; i++)
+		for (let j=0; j<field[i].length; j++)
+			field[i][j] = 0;
 }

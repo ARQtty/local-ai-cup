@@ -181,3 +181,10 @@ function inVisible(unit_id) {
 		return visibleObjs;
 	}
 }
+
+function isUnit(posX, posY){
+	// Проверяет наличие юнита в клетке. Если он есть, возвращает объект с этим юнитом
+	for (let i=0; i<units.length; i++)
+		if ((units[i].position.x == posX) && (units[i].position.y == posY))
+			return units[i];
+}
