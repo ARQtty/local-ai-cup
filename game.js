@@ -21,13 +21,13 @@ function generateId(){
 }
 function exampleUnitsGeneration(playersNames){
 	let un1 = new Unit(playersNames[0], 3, 3);
-	let un2 = new Unit(playersNames[0], 3, 4);
-	let un3 = new Unit(playersNames[0], 4, 3);
+	// let un2 = new Unit(playersNames[0], 3, 4);
+	// let un3 = new Unit(playersNames[0], 4, 3);
 	
 	let un4 = new Unit(playersNames[1], 18, 18);
 	let un5 = new Unit(playersNames[1], 17, 18);
 	let un6 = new Unit(playersNames[1], 18, 17);
-	units.push(un1, un2, un3, un4, un5, un6);
+	units.push(un1,  un4, un5, un6);
 }
 function getPlayerUnits(playerName){
 	// Возвращает всех юнитов указанного игрока
@@ -40,12 +40,12 @@ function getPlayerUnits(playerName){
 
 
 // Настройки игроков
-var players = [new BotFarmer("FarmerBot", "#32cd32"), new BotRandom("RandomBot", "#005000")]; // [bot1, bot2....]
+var players = [new BotRandom("FarmerBot", "#32cd32"), new BotRandom("RandomBot", "#005000")]; // [bot1, bot2....]
 exampleUnitsGeneration([players[0].name, players[1].name]);
 var currPlayer = players[0].name; // Who starts the game
 // Распределение юнитов по игрокам
-players[0].units = units.slice(0, 3);
-players[1].units = units.slice(3, 6);
+players[0].units = units.slice(0, 1);
+players[1].units = units.slice(1, 4);
 
 
 
@@ -168,12 +168,13 @@ function spawnFood(){
 	let y = Math.round(Math.random()*(sizeY-1));
 
 	if (isFree(x, y) && !isUnit(x, y))
-		field[y][x] = "F";
+		field[x][y] = "F";
 	else
 		spawnFood();
 }
 function clearField(){
 	for (let i=0; i<field.length; i++)
 		for (let j=0; j<field[i].length; j++)
-			field[i][j] = 0;
+			if (isFood(i, j))
+				field[i][j] = 0;
 }

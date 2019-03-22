@@ -16,9 +16,9 @@ function drawGameField(){
 	ctx.fillStyle = "pink";
 	ctx.strokeStyle = "black";
 	ctx.lineWidth = 0.3;
-
 	ctx.rect(0, 0, sizeX*cellSize, sizeY*cellSize);
 	ctx.fill();
+	
 
 	let j=0;
 	for (let i=0; i<sizeX; i++){
@@ -32,7 +32,21 @@ function drawGameField(){
 		}
 	}
 	ctx.stroke();
-	// console.log("drawed");
+
+
+	ctx.beginPath();
+	ctx.fillStyle = "brown";
+
+	j=0;
+	for (let i=0; i<sizeX; i++){
+		for (let j=0; j<sizeX; j++){
+			if (field[i][j] == 1){
+				// Стена
+				ctx.rect(i*cellSize, j*cellSize, cellSize, cellSize);
+			}
+		}
+	}
+	ctx.fill();
 }
 
 function drawGameWarFog(){
@@ -90,7 +104,7 @@ function drawGameUnits(){
 					ctx.font = Math.round(cellSize/2.3)+"px Arial";
 					ctx.strokeStyle = "white";
 					ctx.strokeText(unit.id, unit.position.x*cellSize + cellCenter_ds/2,
-									  unit.position.y*cellSize + cellCenter_ds*1.3);
+									  		unit.position.y*cellSize + cellCenter_ds*1.3);
 				}
 			}
 		}

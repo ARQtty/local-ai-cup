@@ -115,6 +115,8 @@ function isFree(posX, posY) {
 				return false;
 		}
 	   	return true;
+	}else{
+		return false;
 	}
 }
 function isFood(posX, posY) {
